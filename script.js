@@ -6,7 +6,6 @@ const recipeContainer = document.querySelector(".recipe-container");
 const fetchRecipe = async (query) => {
   recipeContainer.innerHTML = "<h1>Fetching Recipes...</h1>"; 
 
-  
   try {
     const data = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`);
     const response = await data.json();
@@ -46,6 +45,7 @@ const fetchRecipe = async (query) => {
 };
 
 // Function to show detailed recipe information
+// Function to show detailed recipe information
 const showRecipeDetails = (meal) => {
   recipeContainer.innerHTML = `
     <div class="recipe-detail">
@@ -58,6 +58,13 @@ const showRecipeDetails = (meal) => {
       <ul>
         ${getIngredientsList(meal).map(ingredient => `<li>${ingredient}</li>`).join('')}
       </ul>
+
+      <!-- Embedding YouTube video -->
+      <h3>Watch Recipe Video:</h3>
+      ${meal.strYoutube ? `<iframe width="560" height="315" src="https://www.youtube.com/embed/${getYoutubeVideoId(meal.strYoutube)}" 
+        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
+      : `<p>No video available.</p>`}
+
       <button class="backBtn">Back to Results</button>
     </div>
   `;
@@ -68,6 +75,13 @@ const showRecipeDetails = (meal) => {
     fetchRecipe(searchBox.value.trim() || 'chicken'); // Return to search results or default query
   });
 };
+
+// Function to extract YouTube video ID from the URL
+const getYoutubeVideoId = (url) => {
+  const urlParams = new URL(url);
+  return urlParams.searchParams.get('v'); // Extracts the video ID from the URL
+};
+
 
 // Function to extract ingredients and measurements
 const getIngredientsList = (meal) => {
