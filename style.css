@@ -144,6 +144,7 @@ main {
 
 .recipe button:hover {
   background-color: orangered;
+  
 }
 
 /* Enlarge image when hovering over recipe container */
@@ -326,11 +327,33 @@ iframe {
     font-size: 14px;
     padding: 10px 15px;
   }
+  .recipe:hover {
+    transform: none;
+  }
+
+  .recipe-container .recipe:not(:hover) {
+    filter: none;
+  }
+
+  .recipe button:hover {
+    background-color: rgba(233, 69, 9, 0.617); /* Keep the original button color */
+  }
 }
 
 @media (max-width: 480px) {
+  .recipe:hover {
+    transform: none;
+  }
+
+  .recipe-container .recipe:not(:hover) {
+    filter: none;
+  }
+
+  .recipe button:hover {
+    background-color: rgba(251, 81, 19, 0.617); /* Keep the original button color */
+  }
   .search-box {
-    flex-direction: column;
+    flex-direction: row;
     width: 100%;
   }
 
@@ -349,6 +372,9 @@ iframe {
     max-width: 100%;
   }
 
+  .recipe button{
+    font-size: 20px;
+  }
   .recipe-detail img {
     height: 25vw;
     width: 25vw;
